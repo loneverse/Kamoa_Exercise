@@ -1,5 +1,5 @@
 {
-	"name": "cdk-example",
+	"name": "kamoa-tech-exercise",
 	"version": "1.0.0",
 	"bin": {
 		"cdk-example": "build/infra/index.js"
