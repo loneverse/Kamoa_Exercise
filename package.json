@@ -47,7 +47,7 @@
 		"@aws-cdk/aws-iam": "^1.163.1",
 		"@aws-cdk/aws-lambda": "^1.163.1",
 		"@aws-cdk/core": "^1.163.1",
-		"aws-cdk": "^2.31.1",
+		"aws-cdk": "^1.163.1",
 		"aws-xray-sdk-core": "^3.3.6",
 		"source-map-support": "^0.5.21"
 	},

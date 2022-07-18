@@ -40,7 +40,7 @@ export default class ApiGateway extends cdk.Construct {
 
 		const auth = new apigw.CognitoUserPoolsAuthorizer(
 			this,
-			"cognitoauthorizer-events",
+			"cognitoauthorizer-example-service",
 			{
 				cognitoUserPools: [userPool],
 			},
@@ -48,7 +48,7 @@ export default class ApiGateway extends cdk.Construct {
 
 		const api = new apigw.Resource(this, stage.id("apigw-resource"), {
 			parent: mainApi.root,
-			pathPart: "service",
+			pathPart: "example-service",
 			defaultMethodOptions: {
 				authorizationType: apigw.AuthorizationType.COGNITO,
 				authorizer: auth,

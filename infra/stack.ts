@@ -41,9 +41,9 @@ export default class Stack extends cdk.Stack {
 
 		const services = [
 			{
-				lambdaFn: svcLambdas.collector,
+				lambdaFn: svcLambdas.service,
 				method: "POST",
-				path: "fetch",
+				path: "test",
 			},
 		];
 
