@@ -69,28 +69,16 @@
 			"sourceType": "module"
 		},
 		"rules": {
-			"no-console": [
-				"error"
-			],
-			"no-debugger": [
-				"error"
-			],
-			"linebreak-style": [
-				"error",
-				"unix"
-			],
-			"semi": [
-				"error",
-				"always"
-			],
+			"no-console": ["error"],
+			"no-debugger": ["error"],
+			"linebreak-style": ["error", "unix"],
+			"semi": ["error", "always"],
 			"no-unused-vars": "off",
-			"@typescript-eslint/no-unused-vars": [
-				"error"
-			],
+			"@typescript-eslint/no-unused-vars": ["error"],
 			"no-prototype-builtins": "off"
 		}
 	},
 	"engines": {
-		"node": ">=16"
+		"node": ">=18"
 	}
 }
