@@ -10,7 +10,7 @@ interface AWSProps {
 }
 
 export const aws: AWSProps = {
-	account: process.env.AWS_ACCOUNT_ID || "483535153993",
+	account: process.env.AWS_ACCOUNT_ID || "",
 	region: process.env.AWS_REGION || "eu-west-2",
 };
 

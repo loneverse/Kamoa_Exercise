@@ -4,6 +4,8 @@ import {
 	Context,
 } from "aws-lambda";
 
+import "./fetch";
+
 export const handler = async (
 	event: APIGatewayProxyEventV2,
 	context: Context,
