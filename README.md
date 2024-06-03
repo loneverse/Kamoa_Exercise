@@ -5,3 +5,6 @@
 2 - orchestrate both calls in a single lambda and return the payload with a javascritp object (you can pick the props to return at your will)
 
 3 - create the necessary tests to prove the integration is working and the lambda is returning a JSON
+
+
+## 

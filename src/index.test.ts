@@ -1,7 +1,11 @@
 import { APIGatewayProxyEventV2, Context } from "aws-lambda";
+import { handler } from "./handler";
+import fetchMock from "jest-fetch-mock";
 
-import { handler } from "./index";
+// Enable fetch mocks
+fetchMock.enableMocks();
 
+// Mock context
 const mockContext: Context = {
 	callbackWaitsForEmptyEventLoop: false,
 	functionVersion: "10",
@@ -13,15 +17,12 @@ const mockContext: Context = {
 		"arn:aws:lambda:xxxxxxx:1234567890:function:XXXXXXXXXXXXX:Current",
 	awsRequestId: "149d19a7-13da-4cb6-a104-30328f94ca3a",
 	getRemainingTimeInMillis: () => 1,
-
-	// eslint-disable-next-line
 	done: (): void => {},
-	// eslint-disable-next-line
 	fail: (): void => {},
-	// eslint-disable-next-line
 	succeed: (): void => {},
 };
 
+// Mock event
 const mockEvent: APIGatewayProxyEventV2 = {
 	version: "2.0",
 	routeKey: "POST /",
@@ -61,13 +62,55 @@ const mockEvent: APIGatewayProxyEventV2 = {
 	isBase64Encoded: false,
 };
 
-describe("Dummy test", () => {
-	it("Testing handler", async () => {
-		expect.hasAssertions();
+describe("Handler tests", () => {
+	beforeEach(() => {
+		fetchMock.resetMocks();
+	});
 
-		await expect(handler(mockEvent, mockContext)).resolves.toEqual({
-			body: <string>mockEvent.body,
-			statusCode: 200,
-		});
+	it("Return combined users and posts data", async () => {
+		fetchMock.mockResponses(
+			[
+				JSON.stringify([
+					{ id: 1, name: "Ayub Nganga", email: "ayub@example.com" },
+				]),
+				{ status: 200 },
+			],
+			[
+				JSON.stringify([
+					{
+						userId: 1,
+						id: 1,
+						title: "post title",
+						body: "This is a good coding excercise",
+					},
+				]),
+				{ status: 200 },
+			],
+		);
+
+		const response = await handler(mockEvent, mockContext);
+
+		expect(response.statusCode).toBe(200);
+		const body = JSON.parse(response.body);
+		expect(Array.isArray(body)).toBe(true);
+		expect(body.length).toBeGreaterThan(0);
+		expect(body[0]).toHaveProperty("id");
+		expect(body[0]).toHaveProperty("name");
+		expect(body[0]).toHaveProperty("email");
+		expect(body[0]).toHaveProperty("posts");
+		expect(Array.isArray(body[0].posts)).toBe(true);
+		expect(body[0].posts[0]).toHaveProperty("id");
+		expect(body[0].posts[0]).toHaveProperty("title");
+		expect(body[0].posts[0]).toHaveProperty("body");
+	});
+
+	it("should handle errors well", async () => {
+		fetchMock.mockRejectOnce(new Error("Failed to fetch"));
+
+		const response = await handler(mockEvent, mockContext);
+
+		expect(response.statusCode).toBe(500);
+		const body = JSON.parse(response.body);
+		expect(body).toHaveProperty("message", "Internal Server Error");
 	});
 });

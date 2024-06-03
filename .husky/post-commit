@@ -1,4 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-git push
+git diff --cached --name-only --diff-filter=ACMRT | grep '\.jsx\?$' | xargs eslint --quiet --fix
+git add .
+git commit -m "Feat: Implemented the Lambda function to orchestrate the API calls, log the combined data and run tests to verify the intergration aand expected JSON structure"
+git push -u origin main
