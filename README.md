@@ -38,6 +38,7 @@ The tests cover the following scenarios:
 `cd Kamoa_Exercise`
 
 `npm install`
+
 3. Run the App
 
 `npm run test`
