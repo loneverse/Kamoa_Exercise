@@ -7,4 +7,4 @@
 3 - create the necessary tests to prove the integration is working and the lambda is returning a JSON
 
 
-## 
+## Implementation
